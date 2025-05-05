@@ -21,10 +21,10 @@ const AdminLog = () => {
             messageApi.error('Only the authorized admin email can request OTP.');
             return;
         }
-    
+
         const newOtp = Math.floor(100000 + Math.random() * 900000);
         setGeneratedOtp(newOtp);
-    
+
         const payload = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -34,27 +34,28 @@ const AdminLog = () => {
                 text: `Your OTP for verification is: ${newOtp}`,
             }),
         };
-    
-        const hide = messageApi.loading('Sending OTP...', 3);
-    
+
+        const hide = messageApi.loading('Sending OTP...', 0);
+
         try {
             const response = await adminVerificationData(payload);
-            hide(); 
-    
+            hide();
+
             if (response.status === 200) {
                 sessionStorage.setItem('admin_otp', newOtp);
+                window
                 setOtpModalVisible(true);
                 messageApi.success(`OTP has been sent to ${email}`);
             } else {
                 messageApi.error('Failed to send OTP. Try again.');
             }
         } catch (error) {
-            hide(); // Ensure to close loading
+            hide();
             console.error('OTP Error:', error);
             messageApi.error('An error occurred while sending OTP.');
         }
     };
-    
+
 
     const handleOtpSubmit = (otpInput) => {
         const storedOtp = sessionStorage.getItem('admin_otp');
@@ -113,11 +114,19 @@ const AdminLog = () => {
                         <Button type="default" danger onClick={handleGenerateOtp} style={{ marginRight: 10 }}>
                             Generate OTP
                         </Button>
-                        <Button 
-                        htmlType="submit"
-                        style={{ backgroundColor: '#f00', color: '#fff', borderColor: '#ff4d4f', fontWeight:700 }}
+                        <Button
+                            htmlType="submit"
+                            style={{ backgroundColor: '#f00', color: '#fff', borderColor: '#ff4d4f', fontWeight: 700,marginRight: 10 }}
                         >
                             Login
+                        </Button>
+
+                        <Button
+                            htmlType="submit"
+                            style={{ backgroundColor: '#f00', color: '#fff', borderColor: '#ff4d4f', fontWeight: 700 }}
+                            onClick={()=>{navigate('/adminpanel')}}
+                        >
+                            GuestMode
                         </Button>
                     </Form.Item>
                 </Form>
