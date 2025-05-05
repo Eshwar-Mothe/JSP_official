@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { getLatestVideosData } from '../../../ServiceLayer/api';
 import YouTubeEmbed from './YoutubeEmbed';
+import { Spin, Typography } from 'antd';
+
+const { Title } = Typography;
 
 const VideoGallery = () => {
     const [videos, setVideos] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [currentPlayer, setCurrentPlayer] = useState(null);
 
     useEffect(() => {
@@ -11,9 +15,10 @@ const VideoGallery = () => {
             try {
                 const result = await getLatestVideosData();
                 setVideos(result?.data || []);
-                console.log('Fetched Videos:', result);
             } catch (error) {
                 console.error('Failed to fetch videos:', error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -29,19 +34,28 @@ const VideoGallery = () => {
     };
 
     return (
-        <div>
-            <h2>Latest YouTube Videos Uploaded by JanaSena</h2>
-            <div className="video-list" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-                {videos.map((video, index) => (
-                    <YouTubeEmbed
-                        key={video.id.videoId}
-                        videoId={video.id.videoId}
-                        thumbnail={video.snippet.thumbnails.high.url}
-                        index={index}
-                        onPlay={onPlay}
-                    />
-                ))}
-            </div>
+        <div style={{ padding: '20px' }}>
+            <Title level={3} style={{ textAlign: 'center', color: 'crimson' }}>
+                Latest YouTube Videos Uploaded by JanaSena
+            </Title>
+
+            {loading ? (
+                <div style={{ textAlign: 'center', marginTop: 50 }}>
+                    <Spin tip="Loading videos..." size="large" />
+                </div>
+            ) : (
+                <div className="video-list" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px' }}>
+                    {videos.map((video, index) => (
+                        <YouTubeEmbed
+                            key={video.id.videoId}
+                            videoId={video.id.videoId}
+                            thumbnail={video.snippet.thumbnails.high.url}
+                            index={index}
+                            onPlay={onPlay}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     );
 };

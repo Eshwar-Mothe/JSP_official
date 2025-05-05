@@ -64,13 +64,13 @@ const Header = ({ searchBar }) => {
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link" to="/about">
+              <Link className="nav-link" to="/news">
                 <FontAwesomeIcon icon={faNewspaper} /> News
               </Link>
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link" to="/about">
+              <Link className="nav-link" to="/contact">
                 <FontAwesomeIcon icon={faContactBook} /> Contact
               </Link>
             </li>

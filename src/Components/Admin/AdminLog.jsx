@@ -16,14 +16,15 @@ const AdminLog = () => {
 
     const handleGenerateOtp = async () => {
         const email = form.getFieldValue('email');
-        if (email !== 'mothe.eshwar.em@gmail.com') {
+        const password = form.getFieldValue('password');
+        if (email !== 'mothe.eshwar.em@gmail.com' || password !== "Eshwar@123") {
             messageApi.error('Only the authorized admin email can request OTP.');
             return;
         }
-
+    
         const newOtp = Math.floor(100000 + Math.random() * 900000);
         setGeneratedOtp(newOtp);
-
+    
         const payload = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -33,9 +34,13 @@ const AdminLog = () => {
                 text: `Your OTP for verification is: ${newOtp}`,
             }),
         };
-
+    
+        const hide = messageApi.loading('Sending OTP...', 3);
+    
         try {
             const response = await adminVerificationData(payload);
+            hide(); 
+    
             if (response.status === 200) {
                 sessionStorage.setItem('admin_otp', newOtp);
                 setOtpModalVisible(true);
@@ -44,10 +49,12 @@ const AdminLog = () => {
                 messageApi.error('Failed to send OTP. Try again.');
             }
         } catch (error) {
+            hide(); // Ensure to close loading
             console.error('OTP Error:', error);
             messageApi.error('An error occurred while sending OTP.');
         }
     };
+    
 
     const handleOtpSubmit = (otpInput) => {
         const storedOtp = sessionStorage.getItem('admin_otp');
@@ -69,7 +76,7 @@ const AdminLog = () => {
 
         if (email === 'mothe.eshwar.em@gmail.com' && password === 'Eshwar@123') {
             messageApi.success('Login successful!');
-            navigate('/joinings');
+            navigate('/adminpanel');
         } else {
             messageApi.error('Incorrect admin credentials.');
         }
@@ -103,10 +110,13 @@ const AdminLog = () => {
                     </Form.Item>
 
                     <Form.Item>
-                        <Button type="default" onClick={handleGenerateOtp} style={{ marginRight: 10 }}>
+                        <Button type="default" danger onClick={handleGenerateOtp} style={{ marginRight: 10 }}>
                             Generate OTP
                         </Button>
-                        <Button type="alert" htmlType="submit">
+                        <Button 
+                        htmlType="submit"
+                        style={{ backgroundColor: '#f00', color: '#fff', borderColor: '#ff4d4f', fontWeight:700 }}
+                        >
                             Login
                         </Button>
                     </Form.Item>
@@ -123,6 +133,7 @@ const AdminLog = () => {
                     handleOtpSubmit(otp);
                 }}
                 okText="Verify"
+                okButtonProps={{ type: 'primary', danger: true }}
             >
                 <Input id="otp-input" placeholder="Enter the OTP sent to your email" />
             </Modal>

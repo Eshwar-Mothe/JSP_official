@@ -7,37 +7,38 @@ import { PiGooglePhotosLogo, PiPhoneCall } from "react-icons/pi";
 import { LiaVideoSolid } from "react-icons/lia";
 import { FaAddressCard } from "react-icons/fa6";
 import { MdOutlinePostAdd } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
     const links = {
         galleries: [
-            { icon: <PiGooglePhotosLogo style={{ color: "#f00" }} />, text: "Photos", href: "#" },
-            { icon: <LiaVideoSolid style={{ color: "#f00" }} />, text: "Videos", href: "#" },
+            { icon: <PiGooglePhotosLogo style={{ color: "#f00" }} />, text: "Photos", to: "/" },
+            { icon: <LiaVideoSolid style={{ color: "#f00" }} />, text: "Videos", to: "/" },
         ],
         services: [
-            { icon: <MdOutlinePostAdd style={{ color: "#f00" }} />, text: "Post Issue", href: "#" },
-            { icon: <FaAddressCard style={{ color: "#f00" }} />, text: "Reach Us", href: "#" },
+            { icon: <MdOutlinePostAdd style={{ color: "#f00" }} />, text: "Post Issue", to: "/support" },
+            { icon: <FaAddressCard style={{ color: "#f00" }} />, text: "Reach Us", to: "/support" },
         ],
         contact: [
-            { icon: <RiAdminFill style={{ color: "#f00" }} />, text: "Contact Admin", href: "#" },
-            { icon: <RiMailFill style={{ color: "#f00" }} />, text: "Mail Us", href: "#" },
-            { icon: <PiPhoneCall style={{ color: "#f00" }} />, text: "Call Us", href: "#" },
+            { icon: <RiAdminFill style={{ color: "#f00" }} />, text: "Contact Admin", to: "/support" },
+            { icon: <RiMailFill style={{ color: "#f00" }} />, text: "Mail Us", to: "/support" },
+            { icon: <PiPhoneCall style={{ color: "#f00" }} />, text: "Call Us", to: "/support" },
         ],
         social: [
-            { icon: <BiLogoFacebook style={{ color: "#f00" }} />, text: "Facebook", href: "#" },
-            { icon: <BsTwitterX style={{ color: "#f00" }} />, text: "Twitter", href: "#" },
-            { icon: <AiFillYoutube style={{ color: "#f00" }} />, text: "YouTube", href: "#" },
+            { icon: <BiLogoFacebook style={{ color: "#f00" }} />, text: "Facebook", to: "/" },
+            { icon: <BsTwitterX style={{ color: "#f00" }} />, text: "Twitter", to: "/" },
+            { icon: <AiFillYoutube style={{ color: "#f00" }} />, text: "YouTube", to: "/" },
         ],
     };
 
     const renderColumn = (heading, items) => (
         <div className="footer-column">
             <h4 className="footer-heading">{heading}</h4>
-            {items.map(({ icon, text, href }, idx) => (
-                <a key={idx} href={href} className="footer-link">
+            {items.map(({ icon, text, to },idx) => (
+                <Link key={idx} to={to} className="footer-link">
                     {icon}
                     <span style={{ marginLeft: 10 }}>{text}</span>
-                </a>
+                </Link>
             ))}
         </div>
     );

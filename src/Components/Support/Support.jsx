@@ -1,5 +1,3 @@
-"use client";
-
 import React from 'react';
 import { Card, Row, Col, Form, Input, Button, Typography, Avatar, Divider, message } from 'antd';
 import { MailOutlined, PhoneOutlined } from '@ant-design/icons';
@@ -35,7 +33,6 @@ const localHeads = [
         phone: '9876543213',
         image: 'https://randomuser.me/api/portraits/women/21.jpg',
     },
-
 ];
 
 const Support = () => {
@@ -48,11 +45,14 @@ const Support = () => {
             id: crypto.randomUUID(), // generate a unique ID
             date: new Date().toISOString(),
         };
-    
+
         const existingIssues = JSON.parse(localStorage.getItem('issues')) || [];
         existingIssues.push(newIssue);
         localStorage.setItem('issues', JSON.stringify(existingIssues));
-    
+
+        // Trigger the custom event to notify other components about the change
+        window.dispatchEvent(new Event('issuesUpdated'));
+
         console.log('Issue Submitted:', newIssue);
         messageApi.success('Your issue has been submitted successfully!');
         form.resetFields();
@@ -107,7 +107,6 @@ const Support = () => {
                         <Form.Item name="email" label="Email" rules={[{ required: true, type: 'email', message: 'Please enter a valid email' }]}>
                             <Input placeholder="Enter Your Email" />
                         </Form.Item>
-
 
                         <Form.Item
                             name="location"
