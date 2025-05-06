@@ -180,7 +180,7 @@ const IssueContainer = () => {
 
                         <Space style={{ marginTop: 8 }}>
                             <Button onClick={() => openModal(issue)} size="medium">
-                                👁 View More
+                                View More
                             </Button>
                             <Button type="default" size="medium" style={{ color: 'green' }}>
                                  Resolve
