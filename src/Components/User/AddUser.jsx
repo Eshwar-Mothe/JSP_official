@@ -1,161 +1,139 @@
-"use client";
+import React, { useEffect } from 'react';
+import { Button, Form, Input, Row, Col, Typography, message, DatePicker } from 'antd';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import React, { useState } from 'react';
-import { BsInfo } from "react-icons/bs";
-import { Button, Form, Input, Modal, Typography,message } from 'antd';
+const { Title } = Typography;
 
-const { Title, Paragraph } = Typography;
-
-const AddUser = () => {
+const AddUserForm = () => {
     const [form] = Form.useForm();
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [messageApi, contextHolder] = message.useMessage()
+    const location = useLocation();
+    const navigate = useNavigate();
+    const { district, mandal, village, zip } = location.state || {};
 
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
-        setIsModalVisible(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
+    useEffect(() => {
+        if (!district || !mandal || !village) {
+            navigate('/');
+            return;
+        }
+        form.setFieldsValue({
+            district,
+            constituency: mandal,
+            village,
+            zip,
+        });
+    }, [district, mandal, village, zip, form, navigate]);
 
     const onFinish = (values) => {
-        console.log("userEnteredValues",values)
-        const userData = JSON.parse(localStorage.getItem('newUsers')) || []
-        const isUserExist = userData.find(user => user.email === values.email || user.mobile === values.mobile )
-        console.log(isUserExist)
-        if(isUserExist){
-            messageApi.warning("You are existing member",3)
-            return console.log("User Already Exist try with new Data");
-        }
-        const newUser = {
-            ...values,
-            objectID: crypto.randomUUID(),
-        };
-
-        userData.push(newUser);
-        localStorage.setItem('newUsers', JSON.stringify(userData));
-        messageApi.success("Your Registeration was successful",3)
-
-
-        form.resetFields();
+        const users = JSON.parse(localStorage.getItem('newUsers')) || [];
+        users.push({ ...values, objectID: crypto.randomUUID() });
+        localStorage.setItem('newUsers', JSON.stringify(users));
+        message.success('Registration successful');
+        navigate('/success');
     };
 
     return (
-        <div style={{ padding: '24px', maxWidth: '600px', margin: 'auto' }}>
-            {contextHolder}
-            <Title level={3} style={{ textTransform: 'uppercase', color: 'red', fontWeight: 'bold' }}>
-                JanaSena Joining Form
-            </Title>
+        <div style={{ padding: 24 }}>
+            <Form layout="vertical" form={form} onFinish={onFinish}>
+                <Title level={3} className='text-center' style={{ color: 'red' }}> Registration Form</Title>
 
-            <div style={{ textAlign: "right", fontSize: '30px' }}>
-                <BsInfo style={{ color: "#f00", cursor: "pointer" }} onClick={showModal} />
-            </div>
+                <Title level={4} style={{ marginTop: 32 }}>Personal Details</Title>
+                <Row gutter={16}>
+                    <Col span={12}>
+                        <Form.Item name="fname" label="Full Name" rules={[{ required: true }]}>
+                            <Input />
+                        </Form.Item>
+                        <Form.Item name="email" label="Email" rules={[{ required: true, type: 'email' }]}>
+                            <Input />
+                        </Form.Item>
+                        <Form.Item name="mobile" label="Mobile" rules={[{ required: true }]}>
+                            <Input />
+                        </Form.Item>
+                        <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
+                            <Input />
+                        </Form.Item>
+                        <Form.Item name="dob" label="Date of Birth" rules={[{ required: true }]}>
+                            <DatePicker style={{ width: '100%' }} />
+                        </Form.Item>
+                    </Col>
 
-            <Form
-                form={form}
-                layout="vertical"
-                onFinish={onFinish}
-                initialValues={{ district: '' }}
-            >
-                <Form.Item name="fname" label="Full Name" rules={[{ required: true, message: 'Please enter your name' }]}>
-                    <Input placeholder="Enter Your Full Name" />
-                </Form.Item>
+                    <Col span={12}>
+                        <Form.Item name="aadhar" label="Aadhar Number" rules={[{ required: true }]}>
+                            <Input />
+                        </Form.Item>
+                        <Form.Item name="voterId" label="Voter ID" rules={[{ required: true }]}>
+                            <Input />
+                        </Form.Item>
 
-                <Form.Item name="mobile" label="Mobile" rules={[{ required: true, message: 'Please enter your mobile number' }]}>
-                    <Input type="tel" placeholder="Enter Your Mobile Number" />
-                </Form.Item>
+                        <Form.Item name="education" label="Education" rules={[{ required: true }]}>
+                            <Input />
+                        </Form.Item>
+                        <Form.Item name="maritalStatus" label="Marital Status" rules={[{ required: true }]}>
+                            <Input />
+                        </Form.Item>
+                        <Form.Item name="password" label="Password" rules={[{ required: true }]}>
+                            <Input.Password />
+                        </Form.Item>
+                    </Col>
+                </Row>
 
-                <Form.Item name="email" label="Email" rules={[{ required: true, type: 'email', message: 'Please enter a valid email' }]}>
-                    <Input placeholder="Enter Your Email" />
-                </Form.Item>
+                <Title level={4} style={{ marginTop: 32 }}>Residential Details</Title>
+                <Row gutter={16}>
+                    <Col span={12}>
+                        <Form.Item name="district" label="District">
+                            <Input readOnly />
+                        </Form.Item>
+                        <Form.Item name="constituency" label="Constituency">
+                            <Input readOnly />
+                        </Form.Item>
+                    </Col>
+                    <Col span={12}>
 
-                <Form.Item name="district" label="District" rules={[{ required: true, message: 'Please enter your district' }]}>
-                    <Input placeholder="Enter Your District" />
-                </Form.Item>
+                        <Form.Item name="zip" label="ZIP Code" rules={[{ required: true }]}>
+                            <Input />
+                        </Form.Item>
+                        <Form.Item name="village" label="Village/City">
+                            <Input readOnly />
+                        </Form.Item>
+                    </Col>
+                </Row>
 
-                <Form.Item name="constituency" label="Constituency" rules={[{ required: true, message: 'Please enter your constituency' }]}>
-                    <Input placeholder="Enter Your Constituency" />
-                </Form.Item>
+                <Title level={4} style={{ marginTop: 32 }}>Nominee Details</Title>
+                <Row gutter={16}>
+                    <Col span={8}>
+                        <Form.Item name="nominee_name" label="Nominee Name" rules={[{ required: true }]}>
+                            <Input />
+                        </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                        <Form.Item name="nominee_aadhar" label="Nominee Aadhar" rules={[{ required: true }]}>
+                            <Input />
+                        </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                        <Form.Item name="nominee_mobile" label="Nominee Mobile" rules={[{ required: true }]}>
+                            <Input />
+                        </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                        <Form.Item name="relation" label="Relation with Nominee" rules={[{ required: true }]}>
+                            <Input />
+                        </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                        <Form.Item name="nominee_email" label="Nominee Email (if available)">
+                            <Input />
+                        </Form.Item>
+                    </Col>
+                </Row>
 
-                <Form.Item name="village" label="Village/City" rules={[{ required: true, message: 'Please enter your village or city' }]}>
-                    <Input placeholder="Enter Your Village/City" />
-                </Form.Item>
-
-                <Form.Item name="pin" label="Pincode" rules={[{ required: true, message: 'Please enter your pincode' }]}>
-                    <Input type="text" placeholder="Enter Your Pincode" />
-                </Form.Item>
-
-                <Form.Item>
-                    <Button type="primary" htmlType="submit" style={{ backgroundColor: "red", borderColor: "red", fontSize: '16px' }}>
-                        Join
+                <Form.Item style={{ marginTop: 24 }}>
+                    <Button htmlType="submit" type="primary" style={{ backgroundColor: 'red', borderColor: 'red' }}>
+                        Submit
                     </Button>
                 </Form.Item>
             </Form>
-
-            {/* Modal for Benefits */}
-            <Modal
-                title={<span style={{ color: '#f00' }}>Registration Benefits</span>}
-                open={isModalVisible}
-                onOk={handleOk}
-                onCancel={handleCancel}
-                okText="Got It"
-                okButtonProps={{
-                    style: {
-                        backgroundColor: 'red',
-                        borderColor: 'red',
-                        color: '#fff',
-                        fontWeight: 700,
-                    },
-                }}
-                styles={{
-                    body: {
-                        position: 'relative',
-                        backgroundImage: 'url("/Logo.png")',
-                        backgroundSize: 'cover',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundPosition: 'center',
-                        color: '#fff',
-                        minHeight: '300px',
-                        padding: '24px',
-                    },
-                }}
-                style={{ top: 100 }}
-            >
-                <div
-                    style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        height: '100%',
-                        width: '100%',
-                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                        zIndex: 0,
-                    }}
-                ></div>
-
-                <Paragraph
-                    style={{
-                        position: 'relative',
-                        zIndex: 1,
-                        color: '#fff',
-                        fontWeight: 700,
-                        fontSize: '1rem',
-                    }}
-                >
-                    ✅ Be part of the JanaSena political movement.<br />
-                    ✅ Receive regular updates and notifications.<br />
-                    ✅ Participate in events and community initiatives.<br />
-                    ✅ Voice your local issues to the party.<br />
-                    ✅ Gain access to exclusive volunteer programs.
-                </Paragraph>
-            </Modal>
         </div>
     );
 };
 
-export default AddUser;
+export default AddUserForm;

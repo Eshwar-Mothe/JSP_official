@@ -2,7 +2,7 @@ import React from 'react'
 import LineChart from './LineChart'
 import DoughnutChart from './DoughnutChart'
 import BarGraphChart from './BarGraphChart'
-import { Layout } from 'antd'
+import { Content } from 'antd/es/layout/layout'
 
 const sampleUsers = [
     { id: '1', name: 'Ravi Teja', gender: 'male', district: 'Karimnagar', constituency: 'Manthani', village: 'Peddapalli', joinedAt: '2025-01-12' },
@@ -29,18 +29,11 @@ const sampleUsers = [
 const ChartContainer = () => {
     return (
         <>
-            <div className="container d-flex flex-wrap justify-content-between gap-3 my-2 chart-container">
-                <Layout style={{ width: '40%', minHeight: '200px' }} className='text-center chart'>
+            <Content className='text-center d-flex gap-2 align-items-center justify-content-evenly my-2 bg-light'>
                     <LineChart dataSource={sampleUsers} />
-                </Layout>
-                <Layout style={{ width: '40%', minHeight: '200px' }} className='text-center chart'>
                     <DoughnutChart dataSource={sampleUsers} />
-                </Layout>
-                <Layout style={{ width: '40%', minHeight: '200px' }} className='text-center chart'>
                     <BarGraphChart dataSource={sampleUsers} />
-                </Layout>
-            </div>
-
+            </Content>
         </>
     )
 }

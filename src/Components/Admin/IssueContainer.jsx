@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Button, Modal, Typography, Tag, Space } from 'antd';
+import { Card, Button, Modal, Typography, Tag, Space, message } from 'antd';
 
 const { Paragraph, Title } = Typography;
 
@@ -118,6 +118,7 @@ const IssueContainer = () => {
     const [issues, setIssues] = useState([]);
     const [selectedIssue, setSelectedIssue] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [messageApi, contextHolder] = message.useMessage()
 
     const loadIssues = () => {
         const stored = JSON.parse(localStorage.getItem('issues')) || [];
@@ -147,8 +148,12 @@ const IssueContainer = () => {
     };
 
     const handleResolve = (issue) => {
-        messageApi.success("Issue Marked as Resolved")
-    }
+        messageApi.success(`Issue from ${issue.name} marked as Resolved.`);
+    };
+
+    const handleReject = (issue) => {
+        messageApi.error(`Issue from ${issue.name} has been Rejected.`);
+    };
 
     const closeModal = () => {
         setSelectedIssue(null);
@@ -157,7 +162,7 @@ const IssueContainer = () => {
 
     return (
         <>
-
+            {contextHolder}
             <h4 className='text-center my-2' style={{ color: '#f00', fontWeight: 500 }}>Citizen Grievance Dashboard</h4>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, paddingInline: 20, alignItems: 'center', justifyContent: 'center' }}>
                 {issues.map(issue => (
@@ -182,10 +187,10 @@ const IssueContainer = () => {
                             <Button onClick={() => openModal(issue)} size="medium">
                                 View More
                             </Button>
-                            <Button type="default" size="medium" style={{ color: 'green' }}>
-                                 Resolve
+                            <Button type="default" size="medium" style={{ color: 'green' }} onClick={() => handleResolve(issue)}>
+                                Resolve
                             </Button>
-                            <Button type="default" size="medium" style={{ color: 'red' }}>
+                            <Button type="default" size="medium" style={{ color: 'red' }} onClick={() => handleReject(issue)}>
                                 Reject
                             </Button>
                         </Space>

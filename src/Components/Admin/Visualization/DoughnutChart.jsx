@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Select } from 'antd';
+import { Card, Select } from 'antd';
 import { Doughnut } from 'react-chartjs-2';
 import 'chart.js/auto';
 
@@ -40,44 +40,67 @@ const DoughnutChart = ({ dataSource }) => {
     ],
   };
 
+  const title = "Genders Distribution"
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: { position: "bottom" },
+      tooltip: { enabled: true },
+    },
+  };
+
   return (
-    <div style={{ padding: 20 }}>
-      <h3>Gender Distribution</h3>
-      <Select
-        placeholder="Select District"
-        onChange={val => {
-          setDistrict(val);
-          setConstituency();
-          setVillage();
-        }}
-        style={{ width: 200, marginRight: 8 }}
-        value={district}
-      >
-        {districts.map(d => <Option key={d}>{d}</Option>)}
-      </Select>
-      <Select
-        placeholder="Select Constituency"
-        onChange={val => {
-          setConstituency(val);
-          setVillage();
-        }}
-        value={constituency}
-        style={{ width: 200, marginRight: 8 }}
-        disabled={!district}
-      >
-        {constituencies.map(c => <Option key={c}>{c}</Option>)}
-      </Select>
-      <Select
-        placeholder="Select Village"
-        onChange={setVillage}
-        value={village}
-        style={{ width: 200 }}
-        disabled={!constituency}
-      >
-        {villages.map(v => <Option key={v}>{v}</Option>)}
-      </Select>
-      <Doughnut data={data} />
-    </div>
+    <>
+
+
+      <div className='text-center'>
+        <h3>Gender Distribution</h3>
+        <Select
+          placeholder="Select District"
+          onChange={val => {
+            setDistrict(val);
+            setConstituency();
+            setVillage();
+          }}
+          style={{ width: 200, marginRight: 8 }}
+          value={district}
+        >
+          {districts.map(d => <Option key={d}>{d}</Option>)}
+        </Select>
+        <Select
+          placeholder="Select Constituency"
+          onChange={val => {
+            setConstituency(val);
+            setVillage();
+          }}
+          value={constituency}
+          style={{ width: 200, marginRight: 8 }}
+          disabled={!district}
+        >
+          {constituencies.map(c => <Option key={c}>{c}</Option>)}
+        </Select>
+        <Select
+          placeholder="Select Village"
+          onChange={setVillage}
+          value={village}
+          style={{ width: 200 }}
+          disabled={!constituency}
+        >
+          {villages.map(v => <Option key={v}>{v}</Option>)}
+        </Select>
+
+        <Card title={title} className="shadow-lg text-center">
+          <div style={{ height: "300px" }} className='text-center'>
+            {Object.keys(genderData).length > 0 ? (
+              <Doughnut data={data} options={options} />
+            ) : (
+              <p>No Data found for {selectedMonth}.</p>
+            )}
+          </div>
+        </Card>
+      </div>
+    </>
   );
 };
 

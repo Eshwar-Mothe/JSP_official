@@ -23,15 +23,23 @@ import Footer from './Components/LandingPage/Footer';
 import AdminHome from './Components/Admin/AdminHome';
 import About from './Components/LandingPage/About';
 import News from './Components/LandingPage/News';
+import SuccessPage from './Components/User/SuccessPage';
+import DistrictSelector from './Components/User/DistrictSelector';
+import MandalSelector from './Components/User/MandalSelector';
+import VillageSelector from './Components/User/VillageSelector';
+import Container from './Components/User/Container';
+import PublicImages from './Components/LandingPage/Gallery/PhotoGallery/PublicImages/PublicImages';
+import IssuesImages from './Components/LandingPage/Gallery/PhotoGallery/Issues/IssuesImages';
+import PartyImages from './Components/LandingPage/Gallery/PhotoGallery/Party/PartyImages';
+import EventImages from './Components/LandingPage/Gallery/PhotoGallery/EventImages/EventImages';
 
 // import Home from './MyComponents/Home';
 // import UserChoice from './MyComponents/UserChoice';
 // import Footer from "./MyComponents/Footer.js";
 // import { VideoGallery } from './MyComponents/VideoGallery.js';
-// import { PartyImages } from './MyComponents/Photos/PartyImages.js';
-// import { PublicImages } from './MyComponents/Photos/PublicImages.js';
-// import { EventImages } from './MyComponents/Photos/EventImages.js';
 // import { IssuesImages } from './MyComponents/Photos/IssuesImages.js';
+// import { PartyImages } from './MyComponents/Photos/PartyImages.js';
+// import { EventImages } from './MyComponents/Photos/EventImages.js';
 // // import { News } from './MyComponents/News/News.js';
 // import { AdminPage } from './MyComponents/Admin/AdminPage.js';
 // import { AdminPost } from './MyComponents/Admin/AdminPost.js';
@@ -46,6 +54,9 @@ function App() {
       <Routes>
         <Route exact path='/' element={<LandingPage/>} />
         <Route exact path="/videoGallery" element={<VideoGallery />}/>
+        <Route exact path='/district' element={<DistrictSelector/>}/>
+        <Route exact path='/mandals' element={<MandalSelector/>}/>
+        <Route exact path='/villages' element={<VillageSelector/>}/>
         <Route exact path="/signup" element={<AddUser  />}></Route>
         <Route exact path='/support' element={<Support />}></Route>
         <Route exact path='/admin' element={<AdminLog />}></Route>
@@ -53,13 +64,16 @@ function App() {
         <Route exact path="/about" element={<About />}></Route>
         <Route exact path="/news" element={<News />}></Route>
         <Route exact path="/contact" element={<About />}></Route>
+        <Route exact path="/testing" element={<Container />}></Route>
+        <Route exact path="/success" element={<SuccessPage />}></Route>
+        <Route exact path="/PublicImages" element={<PublicImages />}></Route>
+        <Route exact path="/IssuesImages" element={<IssuesImages />}></Route>
+        <Route exact path="/PartyImages" element={<PartyImages />}></Route>
+        <Route exact path="/EventImages" element={<EventImages />}></Route>
+
 
         {/*  <Route exact path='/' element={<Home />}></Route>
           <Route exact path='/verification' element={<MailVer />}></Route>
-          <Route exact path="/PartyImages" element={<PartyImages />}></Route>
-          <Route exact path="/PublicImages" element={<PublicImages />}></Route>
-          <Route exact path="/EventImages" element={<EventImages />}></Route>
-          <Route exact path="/IssuesImages" element={<IssuesImages />}></Route>
           <Route exact path="/Adminpanel/joinings" element={<Todos todos={todos} onDelete={onDelete} />}></Route>
           <Route exact path='/Adminpanel/AdminPost' element={<AdminPost />}></Route>
           <Route exact path='/Adminpanel/district' element={<UserChoice />}></Route>

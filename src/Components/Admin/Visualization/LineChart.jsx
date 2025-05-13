@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
-import { Select } from 'antd';
+import { Card, Select } from 'antd';
 import dayjs from 'dayjs';
 import 'chart.js/auto';
 
@@ -67,7 +67,15 @@ const LineChart = ({ dataSource }) => {
           </Option>
         ))}
       </Select>
-      <Line data={data} />
+      <Card title={data.datasets[0].label} className="shadow-lg">
+            <div style={{ height: "300px" }}>
+                {Object.keys(dataPerDay).length > 0 ? (
+                    <Line data={data} />
+                ) : (
+                    <p>No Home expenses found for {selectedMonth}.</p>
+                )}
+            </div>
+        </Card>
     </div>
   );
 };

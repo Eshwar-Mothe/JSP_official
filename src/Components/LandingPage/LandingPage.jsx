@@ -11,11 +11,13 @@ const LandingPage = () => {
             <SlideSection />
             <PhotoGallery />
 
-            <Link to="/videoGallery" style={{ textDecoration: 'none', border: '2px solid' }}>
-                <p className='heading' >Video-Gallery
-                    <span> watchMore &rarr; </span></p>
-            </Link>
-                <div><Videos /></div>
+            <div className="container d-flex justify-content-between">
+                <p className='heading p-0'>Video-Gallery</p>
+                <Link to="/videoGallery" style={{ textDecoration: 'none',color:'red', fontSize:'1.5rem',fontWeight:600}}>
+                    <span>watchMore &rarr;</span>
+                </Link>
+            </div>
+            <div><Videos /></div>
         </>
     )
 }

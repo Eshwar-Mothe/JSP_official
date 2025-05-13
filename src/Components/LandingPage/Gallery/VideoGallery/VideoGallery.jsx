@@ -35,13 +35,13 @@ const VideoGallery = () => {
 
     return (
         <div style={{ padding: '20px' }}>
-            <Title level={3} style={{ textAlign: 'center', color: 'crimson' }}>
+            <Title level={3} style={{ textAlign: 'center', color: 'red' }}>
                 Latest YouTube Videos Uploaded by JanaSena
             </Title>
 
             {loading ? (
-                <div style={{ textAlign: 'center', marginTop: 50 }}>
-                    <Spin tip="Loading videos..." size="large" />
+                <div style={{ textAlign: 'center', marginTop: 50, color:'red' }}>
+                    <Spin tip="Loading videos..." size="large" style={{ color: 'red' }}/>
                 </div>
             ) : (
                 <div className="video-list" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px' }}>

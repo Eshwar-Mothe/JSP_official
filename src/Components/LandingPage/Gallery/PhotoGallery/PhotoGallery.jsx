@@ -6,25 +6,25 @@ const galleryItems = [
     title: 'Party',
     path: 'PartyImages',
     date: 'Mar 13, 2024',
-    imageUrl: 'https://newsjspdiag673.blob.core.windows.net/gallery/0QhU013zT-OsQsoWbVpmZuG9.jpeg',
+    imageUrl: 'https://janasenanewssletter1.blob.core.windows.net/images/16%E0%B0%B5%20%E0%B0%86%E0%B0%B0%E0%B1%8D%E0%B0%A5%E0%B0%BF%E0%B0%95%20%E0%B0%B8%E0%B0%82%E0%B0%98%E0%B0%82%E0%B0%A4%E0%B1%8B%20%E0%B0%B8%E0%B0%AE%E0%B0%BE%E0%B0%B5%E0%B1%87%E0%B0%B6%E0%B0%82%E0%B0%B2%E0%B1%8B%20%E0%B0%B6%E0%B1%8D%E0%B0%B0%E0%B1%80%20%E0%B0%AA%E0%B0%B5%E0%B0%A8%E0%B1%8D%20%E0%B0%95%E0%B0%B3%E0%B1%8D%E0%B0%AF%E0%B0%BE%E0%B0%A3%E0%B1%8D%204',
   },
   {
     title: 'Public',
     path: 'PublicImages',
     date: 'Mar 13, 2024',
-    imageUrl: 'https://newsjspdiag673.blob.core.windows.net/gallery/0QhU013zT-OsQsoWbVpmZuG9.jpeg',
+    imageUrl: 'https://janasenanewssletter1.blob.core.windows.net/images/%E0%B0%B5%E0%B0%BF%E0%B0%B6%E0%B0%BE%E0%B0%96%20%E0%B0%B5%E0%B0%BF%E0%B0%AE%E0%B0%BE%E0%B0%A8%E0%B0%BE%E0%B0%B6%E0%B1%8D%E0%B0%B0%E0%B0%AF%E0%B0%82%E0%B0%B2%E0%B1%8B%20%E0%B0%B6%E0%B1%8D%E0%B0%B0%E0%B1%80%20%E0%B0%AA%E0%B0%B5%E0%B0%A8%E0%B1%8D%20%E0%B0%95%E0%B0%B3%E0%B1%8D%E0%B0%AF%E0%B0%BE%E0%B0%A3%E0%B1%8D%20%E0%B0%95%E0%B1%81%20%E0%B0%98%E0%B0%A8%20%E0%B0%B8%E0%B1%8D%E0%B0%B5%E0%B0%BE%E0%B0%97%E0%B0%A4%E0%B0%82%200',
   },
   {
     title: 'Events',
     path: 'EventImages',
     date: 'Mar 13, 2024',
-    imageUrl: 'https://newsjspdiag673.blob.core.windows.net/gallery/0QhU013zT-OsQsoWbVpmZuG9.jpeg',
+    imageUrl: 'https://janasenanewssletter1.blob.core.windows.net/images/%E0%B0%AE%E0%B0%A8%E0%B1%8D%E0%B0%AF%E0%B0%82%20%E0%B0%9C%E0%B0%A8%E0%B0%82%E0%B0%A4%E0%B1%8B%20%E0%B0%AE%E0%B0%AE%E0%B1%87%E0%B0%95%E0%B0%8237',
   },
   {
     title: 'Issues',
     path: 'IssuesImages',
     date: 'Mar 13, 2024',
-    imageUrl: 'https://newsjspdiag673.blob.core.windows.net/gallery/0QhU013zT-OsQsoWbVpmZuG9.jpeg',
+    imageUrl: 'https://janasenanewssletter1.blob.core.windows.net/images/%E0%B0%B9%E0%B1%88%E0%B0%A6%E0%B0%B0%E0%B0%BE%E0%B0%AC%E0%B0%BE%E0%B0%A6%E0%B1%8D%20%E0%B0%A8%E0%B1%86%E0%B0%95%E0%B1%8D%E0%B0%B2%E0%B1%86%E0%B0%B8%E0%B1%8D%20%E0%B0%B0%E0%B1%8B%E0%B0%A1%E0%B1%8D%20%E0%B0%B2%E0%B1%8B%20%E0%B0%9C%E0%B0%A8%E0%B0%B8%E0%B1%87%E0%B0%A8%20%E0%B0%AA%E0%B0%BE%E0%B0%B0%E0%B1%8D%E0%B0%9F%E0%B1%80%20%E0%B0%95%E0%B1%8A%E0%B0%B5%E0%B1%8D%E0%B0%B5%E0%B1%8A%E0%B0%A4%E0%B1%8D%E0%B0%A4%E0%B1%81%E0%B0%B2%20%E0%B0%AA%E0%B1%8D%E0%B0%B0%E0%B0%A6%E0%B0%B0%E0%B1%8D%E0%B0%B6%E0%B0%A8%E0%B0%B2%E0%B1%8B%20%E0%B0%AA%E0%B0%BE%E0%B0%B2%E0%B1%8D%E0%B0%97%E0%B1%8A%E0%B0%A8%E0%B1%8D%E0%B0%A8%20%E0%B0%B6%E0%B1%8D%E0%B0%B0%E0%B1%80%20%E0%B0%95%E0%B1%86.%E0%B0%A8%E0%B0%BE%E0%B0%97%E0%B0%AC%E0%B0%BE%E0%B0%AC%E0%B1%81%203',
   },
 ];
 

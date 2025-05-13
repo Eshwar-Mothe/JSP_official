@@ -2,6 +2,7 @@ import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import dayjs from 'dayjs';
 import 'chart.js/auto';
+import { Card } from 'antd';
 
 const BarGraphChart = ({ dataSource }) => {
   const localUsers = JSON.parse(localStorage.getItem('newUsers')) || [];
@@ -28,10 +29,19 @@ const BarGraphChart = ({ dataSource }) => {
     ],
   };
 
+  const title = 'Top Joining Districts'
   return (
     <div style={{ padding: 20 }}>
       <h3>Top Joining Districts</h3>
-      <Bar data={data} />
+      <Card title={title} className="shadow-lg">
+        <div style={{ height: "300px" }}>
+          {data.labels.length > 0 ? (
+            <Bar data={data} />
+          ) : (
+            <p>No Home expenses found for {selectedMonth}.</p>
+          )}
+        </div>
+      </Card>
     </div>
   );
 };
